@@ -21,6 +21,16 @@ def index():
     return make_response(body, 200)
 
 # Add views here
+@app.route('/earthquakes/<int:id>')
+def earthquake_by_id(id):
+    earthquake = Earthquake.query.filter_by(id = id)
+    if earthquake:
+        body = earthquake.to_dict()
+        status = 200
+    else:
+        body = f'no earthquake {id} found'
+        status = 404
+    return make_response(body, status)
 
 
 if __name__ == '__main__':
